@@ -1,0 +1,62 @@
+# Terraform files to ignore
+
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform.lock.hcl
+
+# Ignore override files, which are usually used for local development and should not be committed
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore crash log files
+crash.log
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Secret files
+*.pem
+*.key
+*.crt
+*.env
+*.secret
+*.vault
+*.enc
+
+# OS and System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Compiled C/C++ & Java
+*.class
+*.o
+*.out
+*.exe
+
+# Logs and Databases
+*.log
+*.sqlite
+*.sqlite3
+
+# Environment & Credentials
+.env
+.env.local
+secret.json
+credentials.json
