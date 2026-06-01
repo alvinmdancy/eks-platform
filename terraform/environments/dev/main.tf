@@ -19,7 +19,7 @@ module "eks" {
   source = "../../modules/eks"
 
   cluster_name    = "eks-platform-dev"
-  cluster_version = "1.29"
+  cluster_version = "1.32"
 
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
@@ -30,5 +30,21 @@ module "eks" {
     Environment = "dev"
     Project     = "eks-platform"
     ManagedBy   = "terraform"
+  }
+}
+
+resource "aws_eks_access_entry" "admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::092426855023:user/Alvin"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::092426855023:user/Alvin"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
   }
 }
