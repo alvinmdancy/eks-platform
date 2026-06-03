@@ -1,29 +1,3 @@
-# EKS Platform
-
-A production-pattern Kubernetes platform built on AWS EKS. Designed to work as both a functional lab environment and a reference for real-world infrastructure patterns.
-
-## What this is
-
-This project provisions a complete Kubernetes platform on AWS using Terraform, deploys applications via GitOps with ArgoCD, and provides cluster observability through Prometheus and Grafana. Every design decision reflects how the platform would be built and operated in a production environment.
-
-## Architecture
-
-GitHub
-├── Terraform (infrastructure)
-│     ├── modules/vpc      — reusable VPC module
-│     ├── modules/eks      — reusable EKS module
-│     └── environments/dev — dev environment entry point
-└── kubernetes (workloads)
-├── apps/sample-app  — sample application
-└── monitoring       — Grafana dashboard exports
-AWS
-└── VPC (us-east-2)
-├── Public subnets   — NAT gateway, load balancers
-├── Private subnets  — EKS nodes
-└── EKS Cluster
-├── ArgoCD     — GitOps controller
-└── Prometheus + Grafana — observability
-
 ## What this demonstrates
 
 - **Modular Terraform** — reusable VPC and EKS modules separating infrastructure logic from environment-specific values
