@@ -68,7 +68,7 @@ Run this when the cluster is not in use to avoid unnecessary AWS charges.
 ## Startup Deployment
 
 ```bash
-export AWS_PROFILE=Alvin
+export AWS_PROFILE=YOUR_PROFILE
 aws eks update-kubeconfig --region us-east-2 --name eks-platform-dev
 kubectl get nodes
 ```
