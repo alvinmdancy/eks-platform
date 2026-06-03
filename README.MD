@@ -63,4 +63,23 @@ cd terraform/environments/dev
 terraform destroy
 ```
 
-Run this when the cluster is not in use to avoid unnecessary AWS charges.
+> **Warning:** Destroying the cluster removes everything — including ArgoCD, Prometheus, and Grafana, which are installed via kubectl and Helm and are not managed by Terraform. After running `terraform apply` again, you will need to reinstall them manually. See the Deploy section above for the full startup sequence.
+
+Run destroy when the cluster is not in use to avoid unnecessary AWS charges.
+
+## Reinstall ArgoCD and Grafana after terraform apply
+
+ArgoCD and Grafana are not managed by Terraform. Run these after every fresh `terraform apply`:
+
+```bash
+# ArgoCD
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f kubernetes/apps/sample-app/argocd-app.yaml
+
+# Prometheus and Grafana
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --set grafana.adminPassword='YOUR_PASSWORD' \
+  --set prometheus.prometheusSpec.retention=24h \
+  --set alertmanager.enabled=false
+```
