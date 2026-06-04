@@ -94,3 +94,17 @@ aws eks update-kubeconfig --region us-east-2 --name eks-platform-dev
 kubectl get nodes
 >>>>>>> ad8e62308c36957cccda33b5d5addcfd2d49bfdf
 ```
+## New Account Password change
+```bash
+argocd login localhost:8080 --username admin --password 'YOUR_ADMIN_PASSWORD' --insecure
+```
+Get the admin password if you need it:
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
+```
+Then set the profile password again:
+```bash
+argocd account update-password --account YOUR_PROFILE --new-password 'YOUR_PASSWORD'
+```
+This will happen every time you destroy and recreate the cluster — the ArgoCD secret resets with a new password each time. Add this to your startup routine alongside the kubeconfig update.
